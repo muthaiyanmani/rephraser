@@ -1,5 +1,5 @@
 
-const DEBOUNCE_DELAY = 500;
+const DEBOUNCE_DELAY = 800;
 
 let apiKey = '';
 
@@ -17,16 +17,19 @@ function debounce(func, delay) {
   };
 }
 
-function handleInputChange(event) {
+async function handleInputChange(event) {
+  const inputElement = event.target;
   const inputValue = event.target.value;
-  processMessage(inputValue);
+  const resp = await processMessage(inputValue);
+  const chatBubble = createChatBubble(resp);
+  console.log(chatBubble);
+  inputElement.insertAdjacentElement("afterend", chatBubble);
 }
 
 function processInputElements() {
   const textInputs = document.querySelectorAll('input[type="text"], textarea');
 
   textInputs.forEach((element) => {
-    console.log(element);
     element.addEventListener("input", debounce(handleInputChange,DEBOUNCE_DELAY));
   });
 }
@@ -51,10 +54,28 @@ async function processMessage(message='') {
       }),
     });
     const data = await resp.json();
-    console.log(data);
+    return data.choices[0].text;
   }catch(error) {
     console.error(error);
   }
+}
+
+function createChatBubble(text) {
+  const bubble = document.createElement('div');
+  bubble.classList.add('chat-bubble');
+
+  bubble.style.position = 'absolute';
+  bubble.style.top = '0';
+  bubble.style.right = '0';
+  bubble.style.backgroundColor = 'red';
+  bubble.style.color = 'white';
+  bubble.style.padding = '12px';
+  bubble.style.borderRadius = '5px';
+  bubble.style.zIndex = '9999';
+  const chat = bubble.appendChild(document.createElement('p'));
+  chat.style.cursor = 'pointer';
+  chat.textContent = text;
+  return bubble;
 }
 
 processInputElements();
