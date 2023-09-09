@@ -19,6 +19,4 @@ changeColor.addEventListener("click", async() => {
         element.style.border = "1px solid red";
       });
     });
- }
-
- chrome.action.setIcon({ path: "/public/assets/logo-success-48.png" });
+};
