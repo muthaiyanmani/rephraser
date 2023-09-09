@@ -1,22 +1,21 @@
-let changeColor = document.getElementById("changeColor");
+// Getting API key from user input
+const tokenForm = document.getElementById("tokenForm");
+tokenForm.addEventListener("submit", saveToken);
 
+function saveToken(e) {
+  e.preventDefault();
+  const token = document.getElementById("apiToken").value;
+  chrome.storage.local.set({ apiToken: token }, function () {
+    chrome.action.setIcon({ path: "/public/assets/logo-success-48.png" });
+  });
+}
 
-changeColor.addEventListener("click", async() => {
-    let inputtag = document.querySelector("#tagcolor");
-    chrome.storage.sync.set({ inputtag: inputtag.value });
- 
-    let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
- 
-    chrome.scripting.executeScript({
-      target: { tabId: tab.id },
-      function: setBorderColor,
-    });
- });
- 
- function setBorderColor() {
-    chrome.storage.sync.get("inputtag", ({ inputtag }) => {
-      document.querySelectorAll(inputtag).forEach((element) => {
-        element.style.border = "1px solid red";
-      });
-    });
-};
+// Get token from the localstorage
+chrome.storage.local.get(["apiToken"], function (items) {
+  if (items.apiToken) {
+    document.getElementById("apiToken").value = items.apiToken;
+    chrome.action.setIcon({ path: "/public/assets/logo-success-48.png" });
+  } else {
+    chrome.action.setIcon({ path: "/public/assets/logo-warn-48.png" });
+  }
+});
