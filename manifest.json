@@ -1,0 +1,17 @@
+{
+  "name": "Rephraser",
+  "description": "Rephraser is a chrome extension designed to enhance your messaging experience. Say goodbye to typos, grammatical errors, and awkward phrasing in your messages.",
+  "version": "1.0.0",
+  "manifest_version": 3,
+  "background": {
+    "service_worker": "src/background.js"
+  },
+  "permissions": ["storage", "activeTab", "scripting"],
+  "action": {
+    "default_popup": "/public/index.html",
+    "default_icon": {
+        "16": "public/assets/logo-warn-48.png",
+        "48": "public/assets/logo-warn-48.png"
+      }
+  }
+}

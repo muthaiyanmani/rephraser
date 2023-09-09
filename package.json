@@ -1,0 +1,20 @@
+{
+  "name": "rephraser",
+  "version": "1.0.0",
+  "description": "Rephraser is a chrome extension designed to enhance your messaging experience. Say goodbye to typos, grammatical errors, and awkward phrasing in your messages.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/muthaiyanmani"
+  },
+  "keywords": [
+    "extension",
+    "rephrase",
+    "chatgpt"
+  ],
+  "author": "muthaiyanmani",
+  "license": "ISC"
+}
