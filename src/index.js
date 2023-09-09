@@ -7,6 +7,7 @@ function saveToken(e) {
   const token = document.getElementById("apiToken").value;
   chrome.storage.local.set({ apiToken: token }, function () {
     chrome.action.setIcon({ path: "/public/assets/logo-success-48.png" });
+    window.close();
   });
 }
 
@@ -19,3 +20,4 @@ chrome.storage.local.get(["apiToken"], function (items) {
     chrome.action.setIcon({ path: "/public/assets/logo-warn-48.png" });
   }
 });
+

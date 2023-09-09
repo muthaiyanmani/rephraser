@@ -16,5 +16,12 @@
       "16": "public/assets/logo-warn-48.png",
       "48": "public/assets/logo-warn-48.png"
     }
-  }
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["/src/content.js"],
+      "run_at": "document_end"
+    }
+  ]
 }
