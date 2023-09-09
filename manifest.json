@@ -19,7 +19,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["http://*/*", "https://*/*"],
+      "matches": ["https://*.zoho.com/*"],
       "js": ["/src/content.js"],
       "run_at": "document_end"
     }
