@@ -25,6 +25,8 @@ async function handleInputChange(event) {
     const chatBubble = createChatBubble(resp);
     inputElement.insertAdjacentElement("afterend", chatBubble);
     chatBubble.addEventListener("click", () => handleCopy(event));
+  } else {
+    removeChatBubble();
   }
 }
 
