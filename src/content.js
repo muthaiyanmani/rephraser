@@ -1,4 +1,4 @@
-const DEBOUNCE_DELAY = 800;
+const DEBOUNCE_DELAY = 1000;
 
 let apiKey = "";
 const processedElements = new Set();
@@ -24,8 +24,23 @@ async function handleInputChange(event) {
     removeChatBubble();
     const chatBubble = createChatBubble(resp);
     inputElement.insertAdjacentElement("afterend", chatBubble);
+    chatBubble.addEventListener("click", () => handleCopy(event));
   }
 }
+
+function handleCopy(event) {
+  const rephraserElement = document.querySelector('[data-name="rephrase-text"]');
+  const rephraseText = rephraserElement?.innerText || rephraserElement?.textContent;
+  
+  if (event?.target?.value) {
+    event.target.value = rephraseText;
+  } else if (event?.target?.innerText) { 
+    event.target.innerText = rephraseText;
+  }
+  removeChatBubble();
+}
+
+
 
 function handleMutation(mutationsList, observer) {
   for (const mutation of mutationsList) {
@@ -71,18 +86,9 @@ function createChatBubble(text) {
   bubble.setAttribute("data-name", "rephrase");
   bubble.classList.add("chat-bubble");
 
-  bubble.style.position = "absolute";
-  bubble.style.top = "0";
-  bubble.style.right = "0";
-  bubble.style.backgroundColor = "red";
-  bubble.style.color = "white";
-  bubble.style.padding = "8px";
-  bubble.style.borderRadius = "5px";
-  bubble.style.zIndex = "9999";
-  bubble.style.fontSize = "11px";
-  bubble.style.width = "10%";
   const chat = bubble.appendChild(document.createElement("p"));
   chat.style.cursor = "pointer";
+  chat.setAttribute("data-name", "rephrase-text");
   chat.textContent = text;
   return bubble;
 }
